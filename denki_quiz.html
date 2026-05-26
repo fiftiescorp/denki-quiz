@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="電工2種対策">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%232563eb' rx='18'/><text y='76' x='50' text-anchor='middle' font-size='60'>⚡</text></svg>">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%E9%9B%BB%E6%B0%97%E5%B7%A5%E4%BA%8B%E5%A3%AB2%E7%A8%AE%20%E5%AD%A6%E7%A7%91%E8%A9%A6%E9%A8%93%E5%AF%BE%E7%AD%96%22%2C%22short_name%22%3A%22%E9%9B%BB%E5%B7%A52%E7%A8%AE%E5%AF%BE%E7%AD%96%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f0f4f8%22%2C%22theme_color%22%3A%22%232563eb%22%2C%22start_url%22%3A%22.%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Crect%20width%3D'100'%20height%3D'100'%20fill%3D'%232563eb'%20rx%3D'18'%2F%3E%3Ctext%20y%3D'76'%20x%3D'50'%20text-anchor%3D'middle'%20font-size%3D'60'%3E%26%2310889%3B%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+<title>電気工事士2種 学科試験対策</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#2563eb;--success:#16a34a;--error:#dc2626;--warn:#d97706;--bg:#f0f4f8;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0}
+body{font-family:'Hiragino Kaku Gothic Pro',Meiryo,'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+header h1{font-size:1.1rem;font-weight:700}
+header p{font-size:.8rem;opacity:.8}
+.wrap{max-width:780px;margin:0 auto;padding:20px 16px}
+
+/* HOME */
+.home h2{font-size:1.4rem;margin:20px 0 6px;text-align:center}
+.home>p{text-align:center;color:var(--muted);margin-bottom:28px;font-size:.9rem}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.cat-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:22px 16px;cursor:pointer;transition:all .2s;text-align:center}
+.cat-card:hover,.cat-card.sel{border-color:var(--primary);background:#eff6ff}
+.cat-card .ico{font-size:2.2rem;margin-bottom:10px}
+.cat-card h3{font-size:.95rem;font-weight:700;margin-bottom:4px}
+.cat-card p{font-size:.78rem;color:var(--muted)}
+.cat-card .cnt{font-size:.8rem;color:var(--primary);font-weight:700;margin-top:8px}
+.all-card{grid-column:1/-1;border-color:var(--primary);background:linear-gradient(135deg,#eff6ff,#f0fdf4)}
+.btn-start{width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px}
+.btn-start:hover:not(:disabled){background:#1d4ed8;transform:translateY(-1px)}
+.btn-start:disabled{background:#94a3b8;cursor:not-allowed}
+
+/* QUIZ */
+.quiz{display:none}
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.prog-bar{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:var(--primary);border-radius:4px;transition:width .3s}
+.prog-txt{font-size:.82rem;color:var(--muted);white-space:nowrap}
+.score-chip{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3px 12px;font-size:.8rem;font-weight:700;color:var(--primary)}
+.q-card{background:var(--card);border-radius:16px;padding:22px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:14px}
+.cat-tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;margin-bottom:10px}
+.tag-blue{background:#dbeafe;color:var(--primary)}
+.tag-green{background:#dcfce7;color:var(--success)}
+.q-text{font-size:.97rem;font-weight:600;line-height:1.6;margin-bottom:14px}
+.diagram{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:18px;text-align:center;overflow-x:auto}
+.diagram svg{max-width:100%}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice{background:#f8fafc;border:2px solid var(--border);border-radius:10px;padding:13px 12px;text-align:left;cursor:pointer;transition:all .2s;font-size:.92rem;line-height:1.4;font-family:inherit}
+.choice:hover:not(:disabled){border-color:var(--primary);background:#eff6ff}
+.choice.correct{border-color:var(--success);background:#f0fdf4;color:var(--success);font-weight:700}
+.choice.wrong{border-color:var(--error);background:#fef2f2;color:var(--error)}
+.choice:disabled{cursor:not-allowed}
+.lbl{font-weight:700;color:var(--primary);margin-right:5px}
+.explain{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px;margin-bottom:14px;display:none}
+.explain.show{display:block}
+.explain h4{color:var(--warn);font-size:.88rem;margin-bottom:8px}
+.explain p{font-size:.88rem;line-height:1.75;color:#44403c;white-space:pre-line}
+.nav{display:flex;gap:10px;margin-top:4px}
+.btn-back{background:var(--card);border:2px solid var(--border);color:var(--text);padding:11px 18px;border-radius:10px;font-size:.92rem;cursor:pointer;font-family:inherit}
+.btn-next{flex:1;background:var(--primary);color:#fff;border:none;padding:12px;border-radius:10px;font-size:.95rem;font-weight:700;cursor:pointer;display:none;font-family:inherit}
+.btn-next.show{display:block}
+
+/* RESULT */
+.result{display:none;text-align:center}
+.r-circle{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:24px auto 20px;color:#fff;box-shadow:0 8px 24px rgba(37,99,235,.3)}
+.r-score{font-size:2.4rem;font-weight:800;line-height:1}
+.r-lbl{font-size:.82rem;opacity:.8}
+.r-msg{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+.r-sub{color:var(--muted);font-size:.88rem;margin-bottom:28px}
+.breakdown{background:var(--card);border-radius:12px;padding:18px 20px;margin-bottom:22px;text-align:left}
+.breakdown h4{font-size:.85rem;color:var(--muted);margin-bottom:10px}
+.brow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:.9rem}
+.brow:last-child{border-bottom:none}
+.btn-retry{width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:10px;font-family:inherit}
+.btn-home2{width:100%;padding:12px;background:var(--card);border:2px solid var(--border);border-radius:10px;font-size:.92rem;cursor:pointer;font-family:inherit}
+
+/* ── モバイル全般 ── */
+@media(max-width:640px){
+  /* ヘッダー */
+  header{padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top))}
+  header h1{font-size:.95rem}
+  header p{display:none}
+
+  /* レイアウト */
+  .wrap{padding:12px 10px;padding-bottom:max(20px,env(safe-area-inset-bottom))}
+  .cat-grid{grid-template-columns:1fr}
+  .cat-card{padding:18px 14px}
+
+  /* 問題カード */
+  .q-card{padding:16px 14px;border-radius:12px}
+  .q-text{font-size:1rem}
+
+  /* 図: スクロール可能 */
+  .diagram{padding:10px 8px;-webkit-overflow-scrolling:touch;border-radius:8px}
+  .diagram::after{content:'← → スクロールできます';display:block;text-align:center;font-size:.72rem;color:#94a3b8;margin-top:6px}
+
+  /* 選択肢: 1列・タッチ大きめ */
+  .choices{grid-template-columns:1fr;gap:8px}
+  .choice{padding:16px 14px;font-size:1rem;min-height:52px;border-radius:10px;display:flex;align-items:center}
+
+  /* ボタン */
+  .btn-start,.btn-retry{padding:16px;font-size:1rem;min-height:52px;border-radius:12px}
+  .btn-next{padding:14px;font-size:1rem;min-height:50px}
+  .btn-back{padding:12px 16px;font-size:.9rem;min-height:50px}
+  .btn-home2{padding:14px;min-height:48px}
+
+  /* 解説 */
+  .explain p{font-size:.9rem;line-height:1.8}
+
+  /* 結果 */
+  .r-circle{width:120px;height:120px}
+  .r-score{font-size:2rem}
+  .brow{font-size:.85rem}
+}
+
+/* ── インストールバナー ── */
+#installBanner{
+  display:none;position:fixed;bottom:0;left:0;right:0;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  color:#fff;padding:14px 16px;
+  padding-bottom:max(14px,env(safe-area-inset-bottom));
+  z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,.2);
+  display:none;align-items:center;gap:10px
+}
+#installBanner.show{display:flex}
+#installBanner .ib-text{flex:1;font-size:.85rem;line-height:1.4}
+#installBanner .ib-text strong{display:block;font-size:.9rem}
+#installBanner button{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:8px 14px;border-radius:8px;font-size:.82rem;cursor:pointer;white-space:nowrap}
+#installBanner .ib-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.2rem;padding:4px;cursor:pointer;min-width:32px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:1.8rem">⚡</div>
+  <div>
+    <h1>電気工事士2種 学科試験対策</h1>
+    <p>配電理論・配線図 練習問題アプリ</p>
+  </div>
+</header>
+<div class="wrap">
+
+<!-- HOME -->
+<div class="home" id="homeScreen">
+  <h2>カテゴリを選択</h2>
+  <p>学習したい分野を選んでスタートしましょう</p>
+  <div class="cat-grid">
+    <div class="cat-card" id="cat0" onclick="selectCat(0)">
+      <div class="ico">🔌</div>
+      <h3>配電理論</h3>
+      <p>オームの法則・回路計算・交流理論</p>
+      <div class="cnt">10問</div>
+    </div>
+    <div class="cat-card" id="cat1" onclick="selectCat(1)">
+      <div class="ico">📐</div>
+      <h3>配線図</h3>
+      <p>図記号・単線図・複線図・施工ルール</p>
+      <div class="cnt">10問</div>
+    </div>
+    <div class="cat-card all-card" id="cat2" onclick="selectCat(2)">
+      <div class="ico">📚</div>
+      <h3>全問題チャレンジ</h3>
+      <p>配電理論＋配線図 全20問を連続出題</p>
+    </div>
+  </div>
+  <button class="btn-start" id="startBtn" onclick="startQuiz()" disabled>学習スタート →</button>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz" id="quizScreen">
+  <div class="prog-row">
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-txt" id="progTxt">1 / 10</div>
+    <div class="score-chip" id="scoreChip">正答 0</div>
+  </div>
+  <div class="q-card">
+    <div class="cat-tag tag-blue" id="catTag">配電理論</div>
+    <div class="q-text" id="qText"></div>
+    <div class="diagram" id="diagramArea"></div>
+    <div class="choices" id="choicesArea"></div>
+  </div>
+  <div class="explain" id="explainCard">
+    <h4>💡 解説</h4>
+    <p id="explainText"></p>
+  </div>
+  <div class="nav">
+    <button class="btn-back" onclick="goHome()">← 戻る</button>
+    <button class="btn-next" id="nextBtn" onclick="nextQ()">次の問題 →</button>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="result" id="resultScreen">
+  <div class="r-circle">
+    <div class="r-score" id="rScore"></div>
+    <div class="r-lbl">正解数</div>
+  </div>
+  <div class="r-msg" id="rMsg"></div>
+  <div class="r-sub" id="rSub"></div>
+  <div class="breakdown" id="breakdown"></div>
+  <button class="btn-retry" onclick="retryQuiz()">もう一度チャレンジ</button>
+  <button class="btn-home2" onclick="goHome()">カテゴリ選択に戻る</button>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- インストールバナー（スマホ用） -->
+<div id="installBanner">
+  <span style="font-size:1.6rem">⚡</span>
+  <div class="ib-text">
+    <strong>ホーム画面に追加</strong>
+    オフラインでも使えます
+  </div>
+  <button onclick="doInstall()">追加する</button>
+  <button class="ib-close" onclick="closeBanner()">✕</button>
+</div>
+
+<script>
+// ─── SVG building blocks ───────────────────────────────────────────────
+const W = (x1,y1,x2,y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#1e293b" stroke-width="2"/>`;
+const NODE = (x,y) => `<circle cx="${x}" cy="${y}" r="4" fill="#1e293b"/>`;
+const TXT = (x,y,t,c='#1e293b',sz=15,a='middle',fw='normal') =>
+  `<text x="${x}" y="${y}" text-anchor="${a}" font-size="${sz}" fill="${c}" font-weight="${fw}" font-family="sans-serif">${t}</text>`;
+
+// JIS-style resistor (rectangle)
+const RESISTOR = (cx,cy,w,h,lbl,lblColor='#2563eb') => {
+  const rx=cx-w/2, ry=cy-h/2;
+  return `<rect x="${rx}" y="${ry}" width="${w}" height="${h}" fill="white" stroke="#1e293b" stroke-width="2" rx="2"/>
+  ${lbl?TXT(cx,ry-10,lbl,lblColor,15,'middle','bold'):''}`;
+};
+
+// Battery (vertical: positive terminal up)
+const BATTERY = (cx,cy,lbl) => `
+  ${W(cx,cy-30,cx,cy-10)}
+  <line x1="${cx-16}" y1="${cy-10}" x2="${cx+16}" y2="${cy-10}" stroke="#1e293b" stroke-width="3"/>
+  <line x1="${cx-10}" y1="${cy+2}" x2="${cx+10}" y2="${cy+2}" stroke="#1e293b" stroke-width="2"/>
+  ${W(cx,cy+2,cx,cy+20)}
+  ${TXT(cx+22,cy-5,'+','#dc2626',16,'start','bold')}
+  ${TXT(cx+22,cy+8,'−','#2563eb',16,'start')}
+  ${lbl?TXT(cx+22,cy+24,lbl,'#2563eb',13,'start','bold'):''}
+`;
+
+// AC source (circle with ~)
+const AC_SOURCE = (cx,cy,lbl) => `
+  <circle cx="${cx}" cy="${cy}" r="22" fill="white" stroke="#1e293b" stroke-width="2"/>
+  <path d="M${cx-10},${cy} q5,-12 10,0 q5,12 10,0" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+  ${lbl?TXT(cx,cy+40,lbl,'#64748b',14):''}
+`;
+
+// Inductor / coil (XL)
+const INDUCTOR = (cx,cy,w,lbl) => {
+  const n=4, bw=w/n;
+  let arcs='';
+  for(let i=0;i<n;i++){
+    const x0=cx-w/2+i*bw, xm=x0+bw/2, x1=x0+bw;
+    arcs+=`<path d="M${x0},${cy} A${bw/2},${bw/2} 0 0 1 ${x1},${cy}" fill="none" stroke="#1e293b" stroke-width="2"/>`;
+  }
+  return `${arcs}${lbl?TXT(cx,cy-18,lbl,'#e67e22',15,'middle','bold'):''}`;
+};
+
+// Capacitor (horizontal)
+const CAPACITOR = (cx,cy,gap,lbl) => {
+  const h=20;
+  return `
+    ${W(cx-30,cy,cx-gap/2,cy)}
+    <line x1="${cx-gap/2}" y1="${cy-h/2}" x2="${cx-gap/2}" y2="${cy+h/2}" stroke="#1e293b" stroke-width="3"/>
+    <line x1="${cx+gap/2}" y1="${cy-h/2}" x2="${cx+gap/2}" y2="${cy+h/2}" stroke="#1e293b" stroke-width="3"/>
+    ${W(cx+gap/2,cy,cx+30,cy)}
+    ${lbl?TXT(cx,cy-24,lbl,'#7c3aed',15,'middle','bold'):''}
+  `;
+};
+
+// Bulb (circle with X)
+const BULB = (cx,cy,r,lbl) => `
+  <circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx-r*.6}" y1="${cy-r*.6}" x2="${cx+r*.6}" y2="${cy+r*.6}" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="${cx+r*.6}" y1="${cy-r*.6}" x2="${cx-r*.6}" y2="${cy+r*.6}" stroke="#1e293b" stroke-width="1.5"/>
+  ${lbl?TXT(cx,cy+r+18,lbl,'#64748b',13):''}
+`;
+
+// Arrow (current direction)
+const ARROW = (x1,y,x2,color='#dc2626',lbl='I') => `
+  <defs><marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0,8 3,0 6" fill="${color}"/></marker></defs>
+  <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${color}" stroke-width="1.5" marker-end="url(#arr)"/>
+  ${lbl?TXT((x1+x2)/2,y-9,lbl,color,15,'middle','bold'):''}
+`;
+
+// ─── Wiring diagram symbols (配線図) ────────────────────────────────────
+// 片切スイッチ
+const SW1 = (cx,cy,label='S') => `
+  <circle cx="${cx}" cy="${cy}" r="7" fill="#1e293b"/>
+  <circle cx="${cx+28}" cy="${cy-16}" r="5" fill="white" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx}" y1="${cy}" x2="${cx+23}" y2="${cy-13}" stroke="#1e293b" stroke-width="2.5"/>
+  ${TXT(cx,cy+24,label,'#1e293b',15,'middle','bold')}
+`;
+
+// 3路スイッチ
+const SW3 = (cx,cy) => `
+  <circle cx="${cx}" cy="${cy}" r="7" fill="#1e293b"/>
+  <circle cx="${cx+30}" cy="${cy-16}" r="5" fill="white" stroke="#1e293b" stroke-width="2"/>
+  <circle cx="${cx+30}" cy="${cy+6}" r="5" fill="white" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx}" y1="${cy}" x2="${cx+25}" y2="${cy-13}" stroke="#1e293b" stroke-width="2.5"/>
+  <line x1="${cx}" y1="${cy}" x2="${cx+25}" y2="${cy+3}" stroke="#1e293b" stroke-width="2" stroke-dasharray="4,2"/>
+  ${TXT(cx,cy+26,'S₃','#1e293b',15,'middle','bold')}
+`;
+
+// コンセント (outlet)
+const OUTLET = (cx,cy,lbl='') => `
+  <path d="M${cx-16},${cy} A16,16 0 0 1 ${cx+16},${cy}" fill="white" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx-16}" y1="${cy}" x2="${cx+16}" y2="${cy}" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx-8}" y1="${cy}" x2="${cx-8}" y2="${cy-12}" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx+8}" y1="${cy}" x2="${cx+8}" y2="${cy-12}" stroke="#1e293b" stroke-width="2"/>
+  ${lbl?TXT(cx,cy+20,lbl,'#1e293b',13):''}
+`;
+
+// 接地極付きコンセント
+const OUTLET_E = (cx,cy) => `
+  ${OUTLET(cx,cy)}
+  <line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy+12}" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx-6}" y1="${cy+12}" x2="${cx+6}" y2="${cy+12}" stroke="#1e293b" stroke-width="2"/>
+  ${TXT(cx,cy+28,'E','#16a34a',14,'middle','bold')}
+`;
+
+// 引掛シーリング
+const CEILING = (cx,cy) => `
+  <circle cx="${cx}" cy="${cy}" r="18" fill="white" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx-18}" y1="${cy}" x2="${cx+18}" y2="${cy}" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx}" y1="${cy-18}" x2="${cx}" y2="${cy+18}" stroke="#1e293b" stroke-width="2"/>
+  ${TXT(cx,cy+32,'引掛','#1e293b',13)}
+`;
+
+// 蛍光灯 (fluorescent)
+const FLUORO = (cx,cy) => `
+  <rect x="${cx-36}" y="${cy-10}" width="72" height="20" fill="white" stroke="#1e293b" stroke-width="2" rx="2"/>
+  <line x1="${cx-48}" y1="${cy}" x2="${cx-36}" y2="${cy}" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx+36}" y1="${cy}" x2="${cx+48}" y2="${cy}" stroke="#1e293b" stroke-width="2"/>
+  ${TXT(cx,cy+5,'FL','#1e293b',13,'middle','bold')}
+`;
+
+// 白熱灯
+const INCAND = (cx,cy) => `
+  <circle cx="${cx}" cy="${cy}" r="18" fill="white" stroke="#1e293b" stroke-width="2"/>
+  ${TXT(cx,cy+5,'×','#1e293b',16,'middle','bold')}
+`;
+
+// 接地 (earth) symbol
+const EARTH = (cx,cy) => `
+  <line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy+10}" stroke="#1e293b" stroke-width="2"/>
+  <line x1="${cx-14}" y1="${cy+10}" x2="${cx+14}" y2="${cy+10}" stroke="#1e293b" stroke-width="2.5"/>
+  <line x1="${cx-9}" y1="${cy+17}" x2="${cx+9}" y2="${cy+17}" stroke="#1e293b" stroke-width="2.5"/>
+  <line x1="${cx-4}" y1="${cy+24}" x2="${cx+4}" y2="${cy+24}" stroke="#1e293b" stroke-width="2.5"/>
+`;
+
+// Box with label (distribution panel, junction box)
+const BOX = (cx,cy,w,h,lbl) => `
+  <rect x="${cx-w/2}" y="${cy-h/2}" width="${w}" height="${h}" fill="white" stroke="#1e293b" stroke-width="2"/>
+  ${TXT(cx,cy+5,lbl,'#1e293b',14,'middle','bold')}
+`;
+
+// ─── Question data ─────────────────────────────────────────────────────
+const QS = [
+
+// ====== 配電理論 ======
+
+{ cat:'配電理論',
+  q:'図の直列回路において、電流 I [A] はいくらか。',
+  svg:`<svg width="360" height="180" viewBox="0 0 360 180">
+  ${ARROW(260,22,300,22,'#dc2626','I')}
+  ${W(40,30,320,30)} ${W(40,150,320,150)}
+  ${W(40,30,40,60)} ${W(40,120,40,150)}
+  ${BATTERY(40,90,'E=16V')}
+  ${W(40,30,90,30)}
+  ${RESISTOR(130,30,80,28,'R₁=3Ω')}
+  ${W(170,30,200,30)}
+  ${RESISTOR(240,30,80,28,'R₂=5Ω')}
+  ${W(280,30,320,30)}
+  ${W(320,30,320,150)}
+  </svg>`,
+  ch:['1 A','2 A','4 A','8 A'], ans:1,
+  exp:'直列回路の合成抵抗: R = R₁ + R₂ = 3 + 5 = 8 [Ω]\nオームの法則: I = E / R = 16 / 8 = 2 [A]'
+},
+
+{ cat:'配電理論',
+  q:'図の並列回路において、合成抵抗 R [Ω] はいくらか。',
+  svg:`<svg width="360" height="200" viewBox="0 0 360 200">
+  ${W(40,40,320,40)} ${W(40,160,320,160)}
+  ${W(40,40,40,80)} ${W(40,120,40,160)}
+  ${BATTERY(40,100,'E=12V')}
+  ${W(40,40,100,40)} ${W(100,40,100,80)}
+  ${W(100,40,260,40)} ${NODE(100,40)} ${NODE(260,40)}
+  ${RESISTOR(180,80,80,28,'R₁=6Ω')}
+  ${W(100,80,140,80)} ${W(220,80,260,80)}
+  ${W(100,120,140,120)}
+  ${RESISTOR(180,120,80,28,'R₂=3Ω')}
+  ${W(220,120,260,120)}
+  ${W(100,120,100,160)} ${W(260,80,260,160)}
+  ${NODE(100,160)} ${NODE(260,160)}
+  ${W(100,160,260,160)}
+  ${W(260,40,320,40)} ${W(260,160,320,160)}
+  ${W(320,40,320,160)}
+  </svg>`,
+  ch:['1 Ω','2 Ω','3 Ω','4 Ω'], ans:1,
+  exp:'並列合成抵抗の公式: R = R₁×R₂ / (R₁+R₂) = 6×3 / (6+3) = 18 / 9 = 2 [Ω]'
+},
+
+{ cat:'配電理論',
+  q:'図の回路において消費電力 P [W] はいくらか。',
+  svg:`<svg width="360" height="180" viewBox="0 0 360 180">
+  ${W(40,30,320,30)} ${W(40,150,320,150)}
+  ${W(40,30,40,60)} ${W(40,120,40,150)}
+  ${BATTERY(40,90,'V=100V')}
+  ${W(40,30,100,30)}
+  ${RESISTOR(180,30,160,28,'R=25Ω')}
+  ${W(260,30,320,30)}
+  ${W(320,30,320,150)}
+  ${ARROW(120,20,160,20,'#dc2626','I')}
+  </svg>`,
+  ch:['250 W','400 W','500 W','800 W'], ans:1,
+  exp:'電流: I = V / R = 100 / 25 = 4 [A]\n消費電力: P = V × I = 100 × 4 = 400 [W]\n(または P = V² / R = 10000 / 25 = 400 [W])'
+},
+
+{ cat:'配電理論',
+  q:'図の直並列回路において、電流 I [A] はいくらか。',
+  svg:`<svg width="380" height="210" viewBox="0 0 380 210">
+  ${W(30,30,350,30)} ${W(30,170,350,170)}
+  ${W(30,30,30,170)}
+  ${BATTERY(30,100,'E=20V')}
+  ${W(30,30,80,30)}
+  ${RESISTOR(120,30,80,28,'R₁=2Ω')}
+  ${W(160,30,200,30)}
+  ${NODE(200,30)} ${NODE(200,170)}
+  ${W(200,30,340,30)} ${W(200,170,340,170)}
+  ${W(200,30,200,70)} ${W(200,130,200,170)}
+  ${RESISTOR(270,70,80,28,'R₂=6Ω')}
+  ${W(200,70,230,70)} ${W(310,70,340,70)}
+  ${W(200,130,230,130)}
+  ${RESISTOR(270,130,80,28,'R₃=3Ω')}
+  ${W(310,130,340,130)}
+  ${W(340,70,340,130)} ${NODE(340,70)} ${NODE(340,130)}
+  ${W(340,30,350,30)} ${W(340,170,350,170)}
+  ${W(350,30,350,170)}
+  ${ARROW(60,20,100,20,'#dc2626','I')}
+  </svg>`,
+  ch:['2 A','4 A','5 A','10 A'], ans:2,
+  exp:'R₂とR₃の並列合成: R₂₃ = 6×3/(6+3) = 2 [Ω]\n全体合成抵抗: R = R₁ + R₂₃ = 2 + 2 = 4 [Ω]\n電流: I = E / R = 20 / 4 = 5 [A]'
+},
+
+{ cat:'配電理論',
+  q:'図の交流回路において、インピーダンス Z [Ω] はいくらか。（R=6Ω、X_L=8Ω）',
+  svg:`<svg width="380" height="190" viewBox="0 0 380 190">
+  ${W(40,40,340,40)} ${W(40,150,340,150)}
+  ${W(40,40,40,75)} ${W(40,115,40,150)}
+  ${AC_SOURCE(40,95,'V=100V')}
+  ${W(40,40,80,40)}
+  ${RESISTOR(140,40,100,28,'R=6Ω')}
+  ${W(190,40,210,40)}
+  ${W(210,40,310,40)}
+  ${INDUCTOR(255,40,90,'X_L=8Ω')}
+  ${W(310,40,340,40)}
+  ${W(340,40,340,150)}
+  ${ARROW(80,30,110,30,'#dc2626','I')}
+  ${TXT(344,80,'Z=?','#7c3aed',16,'start','bold')}
+  </svg>`,
+  ch:['7 Ω','10 Ω','14 Ω','100 Ω'], ans:1,
+  exp:'インピーダンス: Z = √(R² + X_L²) = √(6² + 8²) = √(36 + 64) = √100 = 10 [Ω]\n電流: I = V / Z = 100 / 10 = 10 [A]'
+},
+
+{ cat:'配電理論',
+  q:'図の交流回路において、力率 cosφ はいくらか。（R=3Ω、X_L=4Ω）',
+  svg:`<svg width="380" height="200" viewBox="0 0 380 200">
+  ${W(40,50,340,50)} ${W(40,160,340,160)}
+  ${W(40,50,40,85)} ${W(40,125,40,160)}
+  ${AC_SOURCE(40,105,'V=100V')}
+  ${W(40,50,80,50)}
+  ${RESISTOR(135,50,90,28,'R=3Ω')}
+  ${W(180,50,200,50)}
+  ${W(200,50,300,50)}
+  ${INDUCTOR(245,50,90,'X_L=4Ω')}
+  ${W(300,50,340,50)}
+  ${W(340,50,340,160)}
+  ${TXT(200,135,'Z = √(R²+X²)','#64748b',14)}
+  ${TXT(200,155,'cosφ = R/Z','#64748b',14)}
+  </svg>`,
+  ch:['0.5','0.6','0.75','0.8'], ans:1,
+  exp:'インピーダンス: Z = √(3² + 4²) = √(9+16) = √25 = 5 [Ω]\n力率: cosφ = R / Z = 3 / 5 = 0.6\n（有効電力: P = V×I×cosφ = 100×20×0.6 = 1200W）'
+},
+
+{ cat:'配電理論',
+  q:'三相交流回路において、線間電圧200V、線電流10A、力率0.8のとき、三相電力P[W]はいくらか。',
+  svg:`<svg width="360" height="220" viewBox="0 0 360 220">
+  ${BOX(80,110,80,130,'三相\n電源')}
+  ${W(120,70,240,70)} ${W(120,110,240,110)} ${W(120,150,240,150)}
+  ${BOX(280,110,80,130,'三相\n負荷')}
+  ${TXT(180,30,'V_L = 200V','#2563eb',16,'middle','bold')}
+  ${TXT(180,52,'3φ 3W','#64748b',13)}
+  ${TXT(180,88,'→ I = 10A →','#dc2626',14)}
+  ${TXT(180,128,'→ I = 10A →','#dc2626',14)}
+  ${TXT(180,168,'→ I = 10A →','#dc2626',14)}
+  ${TXT(180,205,'cosφ = 0.8','#64748b',14)}
+  </svg>`,
+  ch:['1600 W','2000 W','2771 W','3200 W'], ans:2,
+  exp:'三相電力の公式:\nP = √3 × V_L × I_L × cosφ\n  = √3 × 200 × 10 × 0.8\n  = 1.732 × 1600\n  ≈ 2771 [W]'
+},
+
+{ cat:'配電理論',
+  q:'図のようにコンデンサを直列接続したとき、合成静電容量 C [μF] はいくらか。',
+  svg:`<svg width="360" height="160" viewBox="0 0 360 160">
+  ${W(30,80,80,80)}
+  ${CAPACITOR(110,80,10,'C₁=4μF')}
+  ${W(140,80,180,80)}
+  ${CAPACITOR(210,80,10,'C₂=4μF')}
+  ${W(240,80,280,80)}
+  ${CAPACITOR(310,80,10,'C₃=4μF')}
+  ${W(340,80,360,80)}
+  ${TXT(30,100,'→','#dc2626',18)}
+  ${TXT(180,145,'(直列接続)','#64748b',14)}
+  </svg>`,
+  ch:['0.75 μF','1.33 μF','2 μF','12 μF'], ans:1,
+  exp:'直列接続の合成静電容量:\n1/C = 1/C₁ + 1/C₂ + 1/C₃ = 1/4 + 1/4 + 1/4 = 3/4\nC = 4/3 ≈ 1.33 [μF]\n※コンデンサ直列は抵抗の並列と同じ計算式'
+},
+
+{ cat:'配電理論',
+  q:'図のようにコンデンサを並列接続したとき、合成静電容量 C [μF] はいくらか。',
+  svg:`<svg width="360" height="200" viewBox="0 0 360 200">
+  ${W(40,100,80,100)} ${NODE(80,100)}
+  ${W(80,60,80,140)} ${W(280,60,280,140)} ${NODE(280,100)}
+  ${W(80,60,110,60)} ${CAPACITOR(140,60,10,'C₁=3μF')} ${W(170,60,280,60)}
+  ${W(80,100,110,100)} ${CAPACITOR(140,100,10,'C₂=2μF')} ${W(170,100,280,100)}
+  ${W(80,140,110,140)} ${CAPACITOR(140,140,10,'C₃=5μF')} ${W(170,140,280,140)}
+  ${W(280,100,320,100)}
+  ${TXT(180,190,'(並列接続)','#64748b',14)}
+  </svg>`,
+  ch:['1 μF','3.3 μF','8 μF','10 μF'], ans:2,
+  exp:'並列接続の合成静電容量:\nC = C₁ + C₂ + C₃ = 3 + 2 + 5 = 10 [μF]\n※コンデンサ並列は抵抗の直列と同じ計算式（単純に足す）'
+},
+
+{ cat:'配電理論',
+  q:'単相2線式で、負荷電流20A、電線1本の抵抗0.5Ω の場合、電圧降下 e [V] はいくらか。',
+  svg:`<svg width="380" height="180" viewBox="0 0 380 180">
+  ${BOX(60,90,80,80,'電源\n100V')}
+  ${W(100,65,280,65)}
+  ${W(100,115,280,115)}
+  ${BOX(310,90,80,80,'負荷')}
+  ${TXT(190,44,'電線 r=0.5Ω','#64748b',13)}
+  ${TXT(190,132,'電線 r=0.5Ω','#64748b',13)}
+  ${TXT(190,62,'→ I=20A →','#dc2626',14,'middle','bold')}
+  ${TXT(190,78,'往路','#64748b',12)}
+  ${TXT(190,126,'← 帰路','#64748b',12,'middle')}
+  ${TXT(190,160,'単相2線式（往復2本）','#64748b',13)}
+  </svg>`,
+  ch:['10 V','20 V','40 V','50 V'], ans:1,
+  exp:'単相2線式の電圧降下:\ne = 2 × r × I = 2 × 0.5 × 20 = 20 [V]\n「2倍」するのは往復2本分の電線抵抗を加算するため\n※受電端電圧 = 100 - 20 = 80 [V]'
+},
+
+// ====== 配線図 ======
+
+{ cat:'配線図',
+  q:'次の図記号はどの器具を表すか。',
+  svg:`<svg width="360" height="180" viewBox="0 0 360 180">
+  <rect x="100" y="40" width="160" height="100" fill="#f0f9ff" stroke="#bfdbfe" stroke-width="1.5" rx="8"/>
+  ${SW1(180,90,'S')}
+  ${TXT(180,158,'（図記号）','#64748b',14)}
+  </svg>`,
+  ch:['片切スイッチ（単極）','3路スイッチ','4路スイッチ','タンブラスイッチ（大形）'], ans:0,
+  exp:'図の記号は「片切スイッチ（単極スイッチ）」です。\n記号の特徴: 黒丸（固定接点）から1本の線（可動接点）が斜め上に出ている。\n・S のみ → 片切（1個所でON/OFF）\n・S₃ → 3路スイッチ（2個所でON/OFF）\n・S₄ → 4路スイッチ（3路スイッチと組み合わせ）'
+},
+
+{ cat:'配線図',
+  q:'次の図記号はどの器具を表すか。',
+  svg:`<svg width="360" height="190" viewBox="0 0 360 190">
+  <rect x="100" y="40" width="160" height="110" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5" rx="8"/>
+  ${SW3(170,100)}
+  ${TXT(180,165,'（図記号）','#64748b',14)}
+  </svg>`,
+  ch:['片切スイッチ','3路スイッチ','4路スイッチ','自動点滅器'], ans:1,
+  exp:'図の記号は「3路スイッチ」です。\n記号の特徴: 黒丸から2本の線（実線と破線）が出ている。「S₃」と表記。\n3路スイッチは2個所からON/OFFできる（廊下・階段で活用）。\n3路スイッチ2個の間の電線は3本必要。'
+},
+
+{ cat:'配線図',
+  q:'次の図記号はどの器具を表すか。',
+  svg:`<svg width="360" height="180" viewBox="0 0 360 180">
+  <rect x="100" y="40" width="160" height="100" fill="#fefce8" stroke="#fde68a" stroke-width="1.5" rx="8"/>
+  ${OUTLET_E(180,95)}
+  ${TXT(180,158,'（図記号）','#64748b',14)}
+  </svg>`,
+  ch:['接地極なしコンセント','接地極付きコンセント','引掛シーリング','漏電遮断器'], ans:1,
+  exp:'図の記号は「接地極付きコンセント（E付きコンセント）」です。\n通常のコンセント記号の下に接地記号（E）が付いている。\n洗濯機・エアコン・電子レンジなどの設置場所に必要。\n接地線（アース線）の色：緑または緑/黄のツートンカラー。'
+},
+
+{ cat:'配線図',
+  q:'次の図記号はどの器具を表すか。',
+  svg:`<svg width="360" height="180" viewBox="0 0 360 180">
+  <rect x="100" y="50" width="160" height="90" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5" rx="8"/>
+  ${CEILING(180,95)}
+  ${TXT(180,158,'（図記号）','#64748b',14)}
+  </svg>`,
+  ch:['白熱灯（電球）','蛍光灯','引掛シーリング（丸型）','換気扇'], ans:2,
+  exp:'図の記号は「引掛シーリング（丸型）」です。\n円の中に十字線（＋）が入った図記号。\n天井に取り付けて照明器具をワンタッチで着脱できる器具。\n・丸型（○に＋）→ 引掛シーリング\n・楕円（○に－）→ 引掛ローゼット'
+},
+
+{ cat:'配線図',
+  q:'次の図記号はどの器具を表すか。',
+  svg:`<svg width="360" height="170" viewBox="0 0 360 170">
+  <rect x="90" y="45" width="180" height="90" fill="#fff1f2" stroke="#fecdd3" stroke-width="1.5" rx="8"/>
+  ${FLUORO(180,90)}
+  ${TXT(180,152,'（図記号）','#64748b',14)}
+  </svg>`,
+  ch:['白熱電球','蛍光灯','LED照明','水銀灯'], ans:1,
+  exp:'図の記号は「蛍光灯（FL）」です。\n長方形の両端に短い線が出た図記号。中に「FL」と記載されることも。\n省エネ性能が高く、事務所・工場・学校などで広く使われる。\n白熱灯の図記号は「○の中に×」の記号（電球マーク）。'
+},
+
+{ cat:'配線図',
+  q:'図の単線図で、電灯（○）をスイッチ（S）で制御する回路を複線図にしたとき、スイッチボックスと電灯の間に必要な電線の本数はいくつか。',
+  svg:`<svg width="360" height="200" viewBox="0 0 360 200">
+  ${BOX(60,100,80,60,'分電盤')}
+  ${W(100,85,170,85)} ${W(100,115,170,115)}
+  ${TXT(135,72,'黒(非接地側)','#1e293b',12)}
+  ${TXT(135,130,'白(接地側)','#64748b',12)}
+  ${SW1(185,100,'S')}
+  ${W(220,100,240,100)}
+  ${BULB(270,100,20,'EL')}
+  ${W(100,115,270,115)}
+  ${TXT(180,162,'単線図（1本の線で表示）','#64748b',13)}
+  ${TXT(180,178,'SW〜電灯間の電線本数は？','#dc2626',13,'middle','bold')}
+  </svg>`,
+  ch:['1本','2本','3本','4本'], ans:1,
+  exp:'スイッチと電灯の間には 2本 の電線が必要です。\n【複線図の考え方】\n① 接地側電線（白）は電灯に直接接続\n② 非接地側電線（黒）はスイッチの片側へ\n③ スイッチのもう一方の端子→電灯\nSW〜電灯間: スイッチ出力線（黒）と接地側線（白）の2本。'
+},
+
+{ cat:'配線図',
+  q:'3路スイッチ2個と電灯1個の回路において、3路スイッチ間を結ぶケーブルに必要な心線数はいくつか。',
+  svg:`<svg width="380" height="200" viewBox="0 0 380 200">
+  ${BOX(40,100,60,60,'電源')}
+  ${W(70,85,110,85)} ${W(70,115,110,115)}
+  ${SW3(120,100)}
+  ${W(162,90,210,90)}
+  ${W(162,110,210,110)}
+  ${TXT(186,75,'?本','#dc2626',16,'middle','bold')}
+  ${TXT(186,133,'SW間の線数','#dc2626',13,'middle')}
+  ${SW3(220,100)}
+  ${W(262,100,290,100)}
+  ${BULB(310,100,20,'EL')}
+  ${TXT(190,170,'3路SW〜3路SWの間の心線数は？','#1e293b',13,'middle')}
+  </svg>`,
+  ch:['1本','2本','3本','4本'], ans:2,
+  exp:'3路スイッチ間のケーブルには 3本（3心）の心線が必要です。\n【3路スイッチの端子】\n・0番端子（共通）: 電源または負荷側\n・1番・3番端子: スイッチ間の渡り線（2本）\nつまり「共通＋渡り線2本」で計3本。\nVVF3心（黒・白・赤）のケーブルを使用する。'
+},
+
+{ cat:'配線図',
+  q:'単相3線式100/200V配線において、非接地側電線（ホット線）の色はどれか。',
+  svg:`<svg width="360" height="200" viewBox="0 0 360 200">
+  ${BOX(60,100,80,100,'変圧器\n二次側')}
+  ${W(100,65,280,65)}
+  ${W(100,100,280,100)}
+  ${W(100,135,280,135)}
+  <circle cx="290" cy="65" r="8" fill="#e74c3c"/>
+  <circle cx="290" cy="100" r="8" fill="white" stroke="#1e293b" stroke-width="2"/>
+  <circle cx="290" cy="135" r="8" fill="#e74c3c"/>
+  ${TXT(320,68,'?','#dc2626',18,'start','bold')}
+  ${TXT(320,104,'中性線','#64748b',14,'start')}
+  ${TXT(320,138,'?','#dc2626',18,'start','bold')}
+  ${TXT(180,28,'単相3線式 100/200V','#1e293b',15,'middle','bold')}
+  ${TXT(180,172,'上・下の電線（非接地側）の色は？','#dc2626',13,'middle')}
+  </svg>`,
+  ch:['赤・黒','赤・白','黒・黒','白・白'], ans:0,
+  exp:'単相3線式配線の電線色:\n・上線（非接地側L1）: 黒 (Black)\n・中線（中性線）:     白 (White)\n・下線（非接地側L2）: 赤 (Red)\n\n覚え方:「く（黒）し（白）あ（赤）」\n非接地側は黒または赤、中性線（接地側）は白。'
+},
+
+{ cat:'配線図',
+  q:'VVFケーブルの説明として正しいものはどれか。',
+  svg:`<svg width="360" height="200" viewBox="0 0 360 200">
+  <!-- Cable cross-section -->
+  <ellipse cx="180" cy="90" rx="100" ry="40" fill="#f3f4f6" stroke="#374151" stroke-width="2"/>
+  <!-- Three wires inside -->
+  <circle cx="145" cy="90" r="18" fill="#1e293b"/>
+  <circle cx="145" cy="90" r="12" fill="#2c2c2c"/>
+  <circle cx="180" cy="90" r="18" fill="#e5e7eb" stroke="#374151" stroke-width="1"/>
+  <circle cx="180" cy="90" r="12" fill="#d1d5db"/>
+  <circle cx="215" cy="90" r="18" fill="#dc2626"/>
+  <circle cx="215" cy="90" r="12" fill="#b91c1c"/>
+  ${TXT(145,90+5,'黒','white',14,'middle','bold')}
+  ${TXT(180,90+5,'白','#374151',14,'middle','bold')}
+  ${TXT(215,90+5,'赤','white',14,'middle','bold')}
+  ${TXT(180,150,'VVF 2.0mm 3心（断面イメージ）','#64748b',13)}
+  ${TXT(180,170,'VVFケーブルの説明は？','#dc2626',13,'middle')}
+  </svg>`,
+  ch:['600Vビニル絶縁ビニルシースケーブル（平形）',
+      '600Vビニル絶縁電線',
+      '架橋ポリエチレン絶縁ビニルシースケーブル',
+      '引込用ビニル絶縁電線'], ans:0,
+  exp:'VVF = Vinyl insulated Vinyl sheathed Flat cable\n正式名称:「600V ビニル絶縁 ビニルシース ケーブル（平形）」\n・住宅の屋内配線で最もよく使われるケーブル\n・2心(黒・白)や3心(黒・白・赤)が一般的\n・記号の読み方: V=ビニル絶縁, V=ビニルシース, F=フラット（平形）'
+},
+
+{ cat:'配線図',
+  q:'接地工事（D種）で使用する接地線の太さの最小値として正しいものはどれか。',
+  svg:`<svg width="360" height="200" viewBox="0 0 360 200">
+  <rect x="120" y="40" width="120" height="80" fill="#f0f9ff" stroke="#93c5fd" stroke-width="2" rx="6"/>
+  ${TXT(180,74,'機器・器具','#1e293b',15,'middle','bold')}
+  ${TXT(180,93,'（D種接地工事）','#64748b',13)}
+  <line x1="180" y1="120" x2="180" y2="148" stroke="#16a34a" stroke-width="3"/>
+  ${EARTH(180,148)}
+  ${TXT(180,183,'D種接地線の最小太さは？','#dc2626',14,'middle')}
+  </svg>`,
+  ch:['直径 1.0 mm 以上','直径 1.6 mm 以上','直径 2.0 mm 以上','直径 2.6 mm 以上'], ans:1,
+  exp:'D種接地工事（第3種接地工事）の接地線の太さ:\n最小値は 直径 1.6 mm（軟銅線）以上\n\n【接地工事の種類と接地抵抗値】\n・A種: 10Ω以下（高圧機器）\n・B種: 変圧器の中性点接地\n・C種: 10Ω以下（300V超の低圧機器）\n・D種: 100Ω以下（300V以下の機器）← 最もよく使う'
+},
+];
+
+// ─── App state ──────────────────────────────────────────────────────────
+let deck = [], idx = 0, correct = 0, answered = false, selCat = -1;
+let catResults = {'配電理論':{c:0,t:0},'配線図':{c:0,t:0}};
+
+function selectCat(i) {
+  selCat = i;
+  document.querySelectorAll('.cat-card').forEach((c,j)=>c.classList.toggle('sel', j===i));
+  document.getElementById('startBtn').disabled = false;
+}
+
+function buildDeck(catIdx) {
+  const bycat = ['配電理論','配線図'];
+  if(catIdx===2) return [...QS];
+  return QS.filter(q=>q.cat===bycat[catIdx]);
+}
+
+function shuffle(arr) {
+  return arr.sort(()=>Math.random()-0.5);
+}
+
+function startQuiz() {
+  deck = shuffle(buildDeck(selCat));
+  idx = 0; correct = 0; answered = false;
+  catResults = {'配電理論':{c:0,t:0},'配線図':{c:0,t:0}};
+  show('quizScreen');
+  renderQ();
+}
+
+function renderQ() {
+  const q = deck[idx];
+  const total = deck.length;
+  // progress
+  document.getElementById('progFill').style.width = (idx/total*100)+'%';
+  document.getElementById('progTxt').textContent = `${idx+1} / ${total}`;
+  document.getElementById('scoreChip').textContent = `正答 ${correct}`;
+  // tag
+  const tag = document.getElementById('catTag');
+  tag.textContent = q.cat;
+  tag.className = 'cat-tag ' + (q.cat==='配電理論'?'tag-blue':'tag-green');
+  // question
+  document.getElementById('qText').textContent = q.q;
+  // diagram
+  document.getElementById('diagramArea').innerHTML = q.svg;
+  // choices
+  const labels = ['ア','イ','ウ','エ'];
+  const ca = document.getElementById('choicesArea');
+  ca.innerHTML = q.ch.map((c,i)=>
+    `<button class="choice" onclick="checkAnswer(${i})"><span class="lbl">${labels[i]}.</span>${c}</button>`
+  ).join('');
+  // reset explanation & next btn
+  document.getElementById('explainCard').className = 'explain';
+  document.getElementById('nextBtn').className = 'btn-next';
+  answered = false;
+}
+
+function checkAnswer(chosen) {
+  if(answered) return;
+  answered = true;
+  const q = deck[idx];
+  const btns = document.querySelectorAll('.choice');
+  btns.forEach((b,i)=>{
+    b.disabled = true;
+    if(i===q.ans) b.classList.add('correct');
+    else if(i===chosen) b.classList.add('wrong');
+  });
+  if(chosen===q.ans){
+    correct++;
+    catResults[q.cat].c++;
+  }
+  catResults[q.cat].t++;
+  // explanation
+  document.getElementById('explainText').textContent = q.exp;
+  document.getElementById('explainCard').className = 'explain show';
+  // next btn
+  const nb = document.getElementById('nextBtn');
+  nb.className = 'btn-next show';
+  nb.textContent = idx+1 < deck.length ? '次の問題 →' : '結果を見る';
+}
+
+function nextQ() {
+  idx++;
+  if(idx >= deck.length){ showResult(); return; }
+  renderQ();
+}
+
+function showResult() {
+  show('resultScreen');
+  const total = deck.length;
+  const pct = Math.round(correct/total*100);
+  document.getElementById('rScore').textContent = `${correct}/${total}`;
+  let msg, sub;
+  if(pct>=90){ msg='素晴らしい！合格圏内です！'; sub='この調子で本試験に挑みましょう。'; }
+  else if(pct>=70){ msg='よくできました！あと一歩！'; sub='苦手分野を重点的に復習しましょう。'; }
+  else if(pct>=50){ msg='もう少し頑張りましょう！'; sub='図記号と計算公式を再確認してください。'; }
+  else { msg='基礎から復習しましょう！'; sub='公式集と図記号一覧表を活用してください。'; }
+  document.getElementById('rMsg').textContent = msg;
+  document.getElementById('rSub').textContent = sub;
+  // breakdown
+  let bd = '<h4>カテゴリ別成績</h4>';
+  Object.entries(catResults).forEach(([cat, {c,t}])=>{
+    if(t===0) return;
+    const p = Math.round(c/t*100);
+    const bar = `<div style="width:${p}%;height:6px;background:${p>=70?'#16a34a':'#f59e0b'};border-radius:3px;margin-top:4px;transition:width .5s"></div>`;
+    bd += `<div class="brow"><div><strong>${cat}</strong>${bar}</div><div style="white-space:nowrap;font-weight:700;color:${p>=70?'#16a34a':'#d97706'}">${c} / ${t} (${p}%)</div></div>`;
+  });
+  document.getElementById('breakdown').innerHTML = bd;
+}
+
+function retryQuiz() {
+  deck = shuffle(buildDeck(selCat));
+  idx = 0; correct = 0; answered = false;
+  catResults = {'配電理論':{c:0,t:0},'配線図':{c:0,t:0}};
+  show('quizScreen');
+  renderQ();
+}
+
+function goHome() {
+  selCat = -1;
+  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('startBtn').disabled = true;
+  show('homeScreen');
+}
+
+function show(id) {
+  ['homeScreen','quizScreen','resultScreen'].forEach(s=>{
+    const el = document.getElementById(s);
+    if(s==='homeScreen') el.style.display = s===id?'block':'none';
+    else if(s==='quizScreen') el.style.display = s===id?'block':'none';
+    else el.style.display = s===id?'block':'none';
+  });
+  // fix quiz class
+  document.getElementById('quizScreen').className = id==='quizScreen'?'quiz':'quiz';
+  if(id==='quizScreen') document.getElementById('quizScreen').style.display='block';
+  if(id==='resultScreen') document.getElementById('resultScreen').style.display='block';
+}
+
+// init
+document.getElementById('quizScreen').style.display='none';
+document.getElementById('resultScreen').style.display='none';
+
+// ─── PWA: Service Worker (オフライン対応) ─────────────────────────────
+if ('serviceWorker' in navigator) {
+  const SW = `
+    const V = 'denki-v1';
+    self.addEventListener('install', e => {
+      e.waitUntil(
+        caches.open(V).then(c => c.addAll(['./']))
+          .catch(()=>{})
+      );
+      self.skipWaiting();
+    });
+    self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+    self.addEventListener('fetch', e => {
+      if (e.request.method !== 'GET') return;
+      e.respondWith(
+        caches.open(V).then(c =>
+          c.match(e.request).then(cached => {
+            const net = fetch(e.request).then(r => {
+              c.put(e.request, r.clone());
+              return r;
+            }).catch(() => cached);
+            return cached || net;
+          })
+        )
+      );
+    });
+  `;
+  try {
+    const blob = new Blob([SW], {type: 'text/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob))
+      .catch(() => {}); // blob SW が使えない環境では無視
+  } catch(e) {}
+}
+
+// ─── PWA: ホーム画面追加バナー ─────────────────────────────────────────
+let deferredPrompt = null;
+const banner = document.getElementById('installBanner');
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // インストール済みでなければバナー表示（2秒後）
+  setTimeout(() => {
+    if (!window.matchMedia('(display-mode: standalone)').matches) {
+      banner.classList.add('show');
+    }
+  }, 2000);
+});
+
+function doInstall() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(() => {
+    deferredPrompt = null;
+    banner.classList.remove('show');
+  });
+}
+
+function closeBanner() {
+  banner.classList.remove('show');
+  sessionStorage.setItem('banner-dismissed', '1');
+}
+
+// iOS Safari 用ガイド（スタンドアロンでなく、iOSの場合）
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isStandalone = window.navigator.standalone;
+if (isIOS && !isStandalone && !sessionStorage.getItem('banner-dismissed')) {
+  setTimeout(() => {
+    banner.querySelector('.ib-text strong').textContent = 'ホーム画面に追加 (iOS)';
+    banner.querySelector('.ib-text').innerHTML =
+      '<strong>ホーム画面に追加 (iOS)</strong>Safariの <b>共有ボタン</b> →「ホーム画面に追加」でオフライン使用可';
+    banner.querySelector('button').style.display = 'none'; // promptボタン非表示
+    banner.classList.add('show');
+  }, 2000);
+}
+</script>
+</body>
+</html>
