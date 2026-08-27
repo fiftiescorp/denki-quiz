@@ -349,6 +349,15 @@ dialog::backdrop{background:rgba(20,18,14,.62)}
 .field input,.field textarea,.field select{padding:8px 10px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);font-size:14px}
 .field-2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
 .hint{font-size:12.5px;color:var(--ink-2);line-height:1.65;margin:0 0 12px}
+.whopick{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:14px}
+.whobtn{
+  border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface-2);
+  padding:14px 8px;font-family:"BIZ UDPGothic",sans-serif;font-weight:700;font-size:17px;
+}
+.whobtn:hover{border-color:var(--accent);color:var(--accent)}
+.whobtn.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.whoelse summary{font-size:12.5px;color:var(--ink-3);cursor:pointer;padding:2px 0 8px}
+.whoelse summary:hover{color:var(--accent)}
 .tabs{display:flex;gap:5px;margin-bottom:12px}
 .tabs button{border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:12.5px;color:var(--ink-2);background:var(--surface-2)}
 .tabs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:500}
@@ -388,7 +397,23 @@ dialog::backdrop{background:rgba(20,18,14,.62)}
 <div id="app"></div>
 
 <script id="app-state" type="application/json">
-{"v":2,"members":[{"id":"mmt9lsqfs5xx6","name":"やす"},{"id":"mmt9lt0zy75j2","name":"ひか"}],"properties":[],"activeId":"","rounds":{},"history":{},"log":[],"updatedAt":0,"updatedBy":""}
+{"v":2,"members":[{"id":"mmt9lsqfs5xx6","name":"やす"},{"id":"mmt9lt0zy75j2","name":"ひか"}],"properties":[
+{"id":"B01","name":"シーサイドソノギ","kind":"apart","address":"長崎県東彼杵郡東彼杵町蔵本郷1615-1ほか","units":"16","built":"","note":"A〜D棟（各4戸）","extra":[]},
+{"id":"B02","name":"川棚下組借家","kind":"house","address":"長崎県東彼杵郡川棚町下組郷","units":"1","built":"","note":"","extra":[]},
+{"id":"B03","name":"プラージュ汐美台","kind":"apart","address":"長崎県佐世保市有福町4167-5ほか","units":"8","built":"","note":"","extra":[]},
+{"id":"B04","name":"リベルタ山本","kind":"apart","address":"佐賀県唐津市石志下柳谷2999-5ほか","units":"22","built":"","note":"A〜E棟（A〜D各4戸・E棟6戸）","extra":[]},
+{"id":"B05","name":"ラフォーレみゆき","kind":"apart","address":"佐賀県嬉野市嬉野町大字下宿字野畑乙1519","units":"14","built":"","note":"A・B棟 各4戸／C棟6戸","extra":[]},
+{"id":"B06","name":"コーポダイショウ","kind":"apart","address":"長崎県佐世保市棚方町440-1","units":"4","built":"","note":"","extra":[]},
+{"id":"B07","name":"クレセント","kind":"apart","address":"長崎県東彼杵郡川棚町小串郷2431-7","units":"8","built":"","note":"","extra":[]},
+{"id":"B08","name":"サンシティシャロル","kind":"apart","address":"長崎県佐世保市大塔町1012-16","units":"6","built":"","note":"サンシティ大塔と一括取得","extra":[]},
+{"id":"B09","name":"サンシティ大塔","kind":"apart","address":"長崎県佐世保市大塔町1007-2","units":"8","built":"","note":"サンシティシャロルと一括取得","extra":[]},
+{"id":"B10","name":"コーポ尾崎","kind":"apart","address":"長崎県佐世保市広田3丁目293","units":"4","built":"","note":"","extra":[]},
+{"id":"B11","name":"ヴァンベール富の原","kind":"apart","address":"長崎県大村市富の原2丁目65番1","units":"8","built":"","note":"","extra":[]},
+{"id":"B12","name":"佐世保権常寺借家","kind":"house","address":"長崎県佐世保市権常寺町","units":"1","built":"","note":"","extra":[]},
+{"id":"B13","name":"セジュールひらき","kind":"apart","address":"長崎県諫早市多良見町木床1555ほか","units":"8","built":"","note":"Ⅰ棟・Ⅱ棟 各4戸","extra":[]},
+{"id":"B14","name":"東与賀借家","kind":"house","address":"佐賀県佐賀市東与賀町","units":"1","built":"","note":"","extra":[]},
+{"id":"B15","name":"セジュールタテダ","kind":"apart","address":"長崎県","units":"8","built":"","note":"A棟・B棟 各4戸／所在地は要確認","extra":[]}
+],"activeId":"B01","rounds":{},"history":{},"log":[],"updatedAt":0,"updatedBy":""}
 </script>
 
 <script id="app-js">
@@ -1102,9 +1127,16 @@ dialog::backdrop{background:rgba(20,18,14,.62)}
   function dialogs() {
     var h = "";
 
-    h += '<dialog id="whoDlg"><form method="dialog"><div class="dlg-head"><h3>点検者の設定</h3><button class="x" value="cancel" aria-label="閉じる">×</button></div>' +
-      '<div class="dlg-body"><p class="hint">この端末を使う人の名前です。判定・写真・更新ログの記録者として残ります。2人で同じリンクを開けば同じ野帳を共同で編集できます。</p>' +
-      '<div class="field"><label for="whoName">氏名</label><input id="whoName" maxlength="16" placeholder="例：田中"></div></div>' +
+    h += '<dialog id="whoDlg"><form method="dialog"><div class="dlg-head"><h3>この端末を使うのは</h3><button class="x" value="cancel" aria-label="閉じる">×</button></div>' +
+      '<div class="dlg-body"><p class="hint">判定・写真・更新ログの記録者として残ります。2人で同じリンクを開けば、同じ野帳を共同で編集できます。</p>' +
+      '<div class="whopick">' +
+      S.members.map(function (m) {
+        return '<button type="button" class="whobtn' + (ME && ME.id === m.id ? " on" : "") +
+          '" data-pickme="' + esc(m.id) + '">' + esc(m.name) + '</button>';
+      }).join("") +
+      '</div>' +
+      '<details class="whoelse"' + (S.members.length ? "" : " open") + '><summary>別の名前で使う</summary>' +
+      '<div class="field"><label for="whoName">氏名</label><input id="whoName" maxlength="16" placeholder="例：たろう"></div></details></div>' +
       '<div class="dlg-foot"><button class="btn" value="cancel">キャンセル</button><button class="btn primary" id="whoSave" value="save">保存</button></div></form></dialog>';
 
     h += '<dialog id="propDlg"><div class="dlg-head"><h3>物件</h3><button class="x" data-close="propDlg" aria-label="閉じる">×</button></div>' +
@@ -1169,8 +1201,16 @@ dialog::backdrop{background:rgba(20,18,14,.62)}
     if (!S.properties.length) {
       body.innerHTML = '<p class="empty">まだ物件がありません。<br>「物件を追加」から登録してください。</p>';
     } else {
-      var h = '<ul class="rows">';
-      S.properties.forEach(function (x) {
+      // 前回巡回が古い順（未巡回が先頭）に並べる — 次に回るべき物件が上に来る
+      var sorted = S.properties.slice().sort(function (a, b) {
+        var la = lastRound(a.id), lb = lastRound(b.id);
+        if (!la && !lb) return 0;
+        if (!la) return -1;
+        if (!lb) return 1;
+        return la.date < lb.date ? -1 : la.date > lb.date ? 1 : 0;
+      });
+      var h = '<p class="hint">前回の巡回が古い順に並んでいます。</p><ul class="rows">';
+      sorted.forEach(function (x) {
         var lr = lastRound(x.id), d = lr ? daysSince(lr.date) : null;
         var hn = (S.history[x.id] || []).length;
         h += '<li><div class="r1"><span class="rd">' + esc(x.name) + '</span>' +
@@ -1602,6 +1642,15 @@ dialog::backdrop{background:rgba(20,18,14,.62)}
         logAdd("点検項目「" + label + "」を追加");
         markDirty(); render();
         toast("項目を追加しました。以降の巡回にも出ます。");
+        return;
+      }
+
+      var pick = t.closest("[data-pickme]");
+      if (pick) {
+        var pid0 = pick.dataset.pickme;
+        S.members.forEach(function (m) { if (m.id === pid0) { ME = m; store(LS_ME, m); } });
+        closeDlg("whoDlg");
+        render();
         return;
       }
 
